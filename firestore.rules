@@ -1,0 +1,25 @@
+rules_version = '2';
+
+/**
+ * Cashpe Firestore rules.
+ *
+ * The PHP app uses a Firebase service account (server-side SDK credentials).
+ * Service accounts bypass Security Rules, so these rules stay locked down for
+ * direct browser/mobile access. Any future client access must use carefully
+ * scoped per-user authorization rules, not unrestricted authenticated access.
+ */
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /tb_partner/{doc}     { allow read, write: if false; }
+    match /tb_transactions/{doc}{ allow read, write: if false; }
+    match /tb_virtualtxn/{doc}  { allow read, write: if false; }
+    match /tb_upis/{doc}        { allow read, write: if false; }
+    match /tb_settings/{doc}    { allow read, write: if false; }
+    match /tb_slab/{doc}        { allow read, write: if false; }
+    match /tb_gateway/{doc}     { allow read, write: if false; }
+
+    // Everything else is denied as well.
+    match /{document=**}        { allow read, write: if false; }
+  }
+}

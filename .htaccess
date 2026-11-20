@@ -1,0 +1,14 @@
+# Cashpe pretty URLs (works on Render / Apache Docker)
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Keep database dumps, Firebase rules and sensitive deployment files private.
+<FilesMatch "(?i)(\.sql|\.env|\.rules)$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "(?i)^(database\.rules\.json|firebase\.json|docker-compose\.yml|Dockerfile|service-account\.json)$">
+  Require all denied
+</FilesMatch>

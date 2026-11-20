@@ -1,0 +1,133 @@
+CASHPE - FIREBASE RULES AUR RENDER SETUP
+=======================================
+
+IMPORTANT: Yeh code Cloud Firestore use karta hai; Firebase Realtime Database
+(RTDB) ko application database ke roop mein use nahin karta. Sirf RTDB ka URL,
+rules ya database secret dalne se login/signup kaam nahin karega. Aap dono
+products bana sakte hain, lekin Cashpe ke liye Firestore zaroori hai.
+
+1. FIRESTORE RULES
+Firebase Console > Firestore Database > Rules mein yeh paste karke Publish karein:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+2. REALTIME DATABASE RULES
+Agar RTDB banaya hai, Firebase Console > Realtime Database > Rules mein yeh
+paste karke Publish karein. RTDB optional hai aur app ise use nahin karta:
+
+{
+  "rules": {
+    ".read": false,
+    ".write": false
+  }
+}
+
+Dono rules public browser access band karte hain. PHP server Firestore REST API
+ko service-account OAuth credentials aur Google Cloud IAM se access karta hai;
+Firestore security rules service account requests par apply nahin hoti. Yeh
+rules true/true mat karein, aur service-account key kisi ko share na karein.
+
+3. RENDER ENVIRONMENT
+Firebase console mein project create karein, phir Build > Firestore Database >
+Create database > production mode. Project settings > Service accounts >
+Generate new private key se JSON download karein. Render service > Environment
+mein ya to JSON se yeh variables daalein:
+
+  FIREBASE_PROJECT_ID   = JSON ka project_id
+  FIREBASE_CLIENT_EMAIL = JSON ka client_email
+  FIREBASE_PRIVATE_KEY  = JSON ka poora private_key (BEGIN se END tak)
+
+Ya sirf FIREBASE_SERVICE_ACCOUNT mein poora service-account JSON paste karein.
+FIREBASE_PRIVATE_KEY mein literal backslash-n bhi supported hai.
+APP_BASE_URL mein Render hostname likhein, jaise example.onrender.com.
+Secrets browser, GitHub, zip ya chat mein kabhi paste na karein. Firestore
+API enabled honi chahiye; service account ko project mein Firestore access ke
+liye appropriate IAM role, jaise Cloud Datastore User, chahiye.
+
+4. DATABASE INITIALIZE / EXISTING DATA
+Fresh Firestore ko initialize karna zaroori hai; rules publish karne se admin
+account create nahin hota. PHP 8 with curl/OpenSSL wale trusted computer ya
+Render shell se, wahi Firebase env vars set karke, cashpe folder ke andar run:
+
+  php tools/seed_firebase.php
+
+Yeh existing document IDs ko skip karta hai. --reset existing collections ka
+data delete karta hai: production par kabhi mat chalayein. Script sirf sample
+settings / demo data banata hai; aapke original MySQL users/transactions ko
+Firestore mein migrate nahin karta. Existing production data ka backup lein.
+
+Fresh seed admin: ADMIN / admin123. Demo merchant: DEMO / demo123.
+Yeh public demo passwords hain; seed ke turant baad dono passwords badlein ya
+demo account disable karein. Agar database pehle se seeded hai, script current
+accounts ko overwrite nahin karega aur purana password hi rahega.
+
+5. DEPLOY AUR CHECK
+Render par branch arena/51d9e391-guru-update ke latest commit ko Manual Deploy
+karein. /health.php check karein:
+
+  status: ok, database: firestore, settings: 1  -> Firestore connection mila
+  status: not_seeded -> seed step chalayein
+  status: database_error -> Render Logs mein [Cashpe DB] error dekhein
+  database: local -> Firebase credentials configured nahin hain; Render ka local
+                      data restart par mit sakta hai. Production mein use na karein.
+
+Login: /Login; admin: /Administration/. Registration par mobile ya email aur
+password use karein. Pehle se created account ke liye dobara registration par
+'already registered' message aayega. Password bhoolne par administrator se
+reset karwaayein: abhi email recovery service configured nahin hai. Bina
+verification naya password screen par dikhana surakshit nahin tha, isliye wo
+purana behavior hata diya gaya hai.
+
+Payment/UPI live use se pehle real credentials aur callback setup verify karein,
+small test transaction karein, aur independent security/concurrency audit karein.
+Yeh project ke legacy logic aur custom SQL-to-Firestore adapter ki wajah se
+production readiness ya payment results guarantee nahin hain.
+
+6. ADMIN LOGIN NA HO TO
+Pehle /health.php check karein. Agar status ok / database firestore hai, iska
+matlab connection aur settings mili; yeh guarantee nahin karta ki admin user
+seed hai ya uska password wahi hai. Fresh seed ka ADMIN / admin123 sirf nayi
+seed par hota hai; pehle se existing account ka password reset nahin hota.
+
+Agar Render shell available ho aur existing admin ka password reset karna ho,
+trusted shell mein service ki Firebase environment ke saath (password ya key
+chat/GitHub mein na bhejein):
+
+  cd /var/www/html
+  export CASHPE_ADMIN_ID=ADMIN
+  read -r -s -p 'New admin password (at least 12 characters): ' CASHPE_ADMIN_NEW_PASSWORD; echo
+  export CASHPE_ADMIN_NEW_PASSWORD
+  php tools/reset_admin_password.php
+  unset CASHPE_ADMIN_ID CASHPE_ADMIN_NEW_PASSWORD
+
+Tool sirf existing admin ko update karta hai; koi account create ya data delete
+nahin karta. User na mile to pehle Firestore mein tb_partner check karein aur
+fresh database ho to section 4 ka seed chalayein. Agar account inactive hai,
+admin se account verify aur activate karwayein. Render Shell availability aapke
+plan par depend kar sakti hai; alternative trusted local PHP terminal hai.
+
+7. DEPLOY VERSION AUR TEST NOTES
+Is package ka /health.php version "2026-11-20-r3" hai. Agar Render par yeh
+version nahin dikh raha, Render mein correct branch/latest commit ko deploy
+karke cache refresh karein. Firestore settings milne ke baad bhi existing
+admin ka password alag ho sakta hai; use section 6 se safely recover karein.
+
+Original Guru ZIP ke CreateAccount.php mein signup OTP nahin tha. Previous
+request ke hisaab se partner aur admin login password-only hain. Original ZIP
+mein assets/img ke images aur Mitra Gateway APK nahin the; is package mein UI
+ke liye local text badges/graphics diye gaye hain. Missing APK ke liye button
+unavailable dikhaya gaya hai; bina asli file ke use restore nahin kiya ja sakta.
+
+Tests local PHP/WebAssembly, isolated mock Firestore aur mobile Chromium se hue.
+Live Render, real Firestore IAM, SMS, Paytm/UPI, transaction status, settlement,
+and actual payment callbacks yahan verify nahin hue. Real payments chalu karne
+se pehle backup, independent security review aur controlled end-to-end test
+zaroor karein. Default passwords turant badlein. SQL-to-Firestore adapter ek
+compatibility layer hai; concurrent financial transactions ke liye audit chahiye.

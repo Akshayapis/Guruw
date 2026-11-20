@@ -1,0 +1,7 @@
+.git
+.gitignore
+README.md
+*.zip
+storage/db.json
+service-account.json
+.DS_Store
