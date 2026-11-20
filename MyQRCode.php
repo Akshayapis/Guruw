@@ -99,7 +99,7 @@ redirect('','1500');
 <h2 class="mt-3 text-white"><b>Accept Payments Directly to your Bank Account</b></h2>
 <h3 class="text-white"><b>At 0% Transaction Fee</b></h3>
 <button class="btn btn-success btn-sm text-white" onclick="window.open('https://wa.me/91<?=support('mobile')?>?text=<?=urlencode("I'm interested in your UPI Smart Gateway")?>');">Activate UPI Smart Gateway</button>
-<div class="card card-custom p-2"><?=webdata("notification")?></div>
+<?php if (trim(webdata("notification")) !== ""): ?><div class="card card-custom p-2"><?=webdata("notification")?></div><?php endif; ?>
 </div>
 </div>        
 <?php } ?>        

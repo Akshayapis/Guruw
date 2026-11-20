@@ -8,7 +8,7 @@ $status = $result === false ? 'database_error' : ($settings ? 'ok' : 'not_seeded
 echo json_encode(array(
     'status' => $status,
     'app' => 'Cashpe',
-    'version' => '2026-11-20-r3',
+    'version' => '2026-11-20-r5',
     'database' => $configured ? 'firestore' : ($result === false ? 'incomplete_configuration' : 'local'),
     'settings' => $settings,
     'hint' => $status === 'ok' ? '' : 'Check Render logs and FIREBASE settings. If Firestore is empty, seed it once as described in FIREBASE_RULES_SETUP.txt.'

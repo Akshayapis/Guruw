@@ -107,99 +107,76 @@ function isUPI(upi) {
 				
                 <div class="col-md-8 mb-4">
 				<h4 class="text-white">Connected Device</h4><hr class="bg-white">
-
-				<div class="card card-custom gutter-b">
-	<!-- Begin::Body-->
-	<div class="card-body">
-		<div class="d-flex">
-			<!-- begin: Info-->
-			<div class="flex-grow-1">
-				<!-- begin::Title-->
-				<div class="d-flex align-items-center justify-content-between flex-wrap">
-					<!-- begin::User-->
-					<div class="mr-3">
-						<div class="d-flex align-items-center mr-3 mb-3">
-							<!-- begin::Name-->
-							<div class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3"
- 								href="#"><i class="fa fa-mobile-alt fa-lg text-nblue"></i>&nbsp;&nbsp; <?=get_device($userdata['id'],16)?> <?=get_device($userdata['id'],17)?></div>
-							<!-- end::Name-->
-							<?php if(get_device($userdata['id'],16)!=""){?>
-							<span class="badge badge-success font-weight-bolder mr-1">Connected</span>
-							<?php }else{?>
-							<span class="badge badge-danger font-weight-bolder mr-1">Disconnected</span>
-							<?php }?>
-						</div>
-						<!-- begin::Contacts-->
-						<div class="text-dark text-hover-primary  mr-lg-8 mr-5 mb-lg-0 mb-2"
- 							href="#">
-							<i class="fa fa-lock text-nblue"></i>&nbsp;&nbsp;Android ID <?=get_device($userdata['id'],15)?></div>
-						<div class="d-flex flex-wrap my-2">
-							<div class="text-dark text-hover-primary  mr-lg-8 mr-5 mb-lg-0 mb-2"
- 								href="#">
-								<i class="fa fa-tools text-nblue"></i>&nbsp;&nbsp;Android <?=get_device($userdata['id'],1)?></div>
-						</div>
-						<div class="text-dark text-hover-primary mr-lg-8 mr-5 mb-lg-0 mb-2"
- 							href="#">
-							<i class="fa fa-history text-nblue"></i>&nbsp;&nbsp;<?=misec_datetime(get_device($userdata['id'],21),"Y-m-d h:i:s")?></div>
-						<!-- end::Contacts-->
-					</div>
-					<!-- begin::User-->
-					<!-- begin::Actions-->
-					<div class="mb-10"/>
-					<!-- end::Actions-->
-				</div>
-				<!-- end::Title-->
-				<!-- end::Content-->
-			</div>
-			<!-- end::Info-->
-		</div>
-		<!-- end::Body-->
-	</div>
-	<!-- End::Card-->
-	<!-- begin::Card-->
-</div>
-			  
-			   
-                </div>					
-				
-				<h4 class="text-white mt-3"><b>Smart Gateway work with</b></h4>
-				<div class="font-size-sm text-white">Smart Gateway currently support selected UPI App right now. Which are given below</div>
-				<hr class="bg-white">
-<div class="card card-custom">				
-	<div class="card-body row">
-	  <div class="col-md-4  mb-2"> 
-	   <a class="nav-link border d-flex flex-grow-1 rounded flex-column align-items-center">
-		<img src="assets/img/bank_paytm.svg" alt="" width="150"></a>
-		<span class="font-size-lg py-2 font-weight-bolder text-center"><b>Paytm :</b> <span class="text-dark"> App<br>
-			<button class="btn bg-mix text-white btn-sm" onclick="window.open('https://play.google.com/store/apps/details?id=net.one97.paytm', '_blank')">Click Here</button>
-			</span>
-		</span>
-	  </div>  
-	    
-	  <div class="col-md-4  mb-2"> 
-	   <a class="nav-link border d-flex flex-grow-1 rounded flex-column align-items-center">
-		<img src="assets/img/bank_sbi.svg" alt="" width="150"></a>
-		<span class="font-size-lg py-2 font-weight-bolder text-center"><b>SBI Pay :</b> <span class="text-dark"> App<br>
-			<button class="btn bg-mix text-white btn-sm" onclick="window.open('https://play.google.com/store/apps/details?id=com.sbi.upi', '_blank')">Click Here</button>
-			</span>
-		</span>
-	  </div>  
-	  
-	  <div class="col-md-4 mb-2"> 
-	   <a class="nav-link border d-flex flex-grow-1 rounded flex-column align-items-center">
-		<img src="assets/img/smartgateway.svg" alt="" width="150"></a>
-		<span class="font-size-lg py-2 font-weight-bolder text-center"><b>Mitra Gateway :</b> <span class="text-dark"> App<br>
-			<button class="btn bg-mix text-white btn-sm" type="button" disabled title="The original archive did not include this APK">App file not included</button>
-			</span>
-		</span>
-	  </div>
-	  
-	  <div class="col-md-12 mt-4"> 
-	   <a class="nav-link border d-flex flex-grow-1 rounded flex-column align-items-center"><b>Payee an pay use with</b>
-	   <p class="text-dark">Your client can pay with UPI App like GooglePay, Phonepay, Freecharge UPI, Bhim UPI, SBI UPI and many more.</p></a> 
-	  </div>
+<?php
+$cpDeviceModel = trim((string) get_device($userdata['id'], 16));
+$cpDeviceBrand = trim((string) get_device($userdata['id'], 17));
+$cpAndroidId = trim((string) get_device($userdata['id'], 15));
+$cpAndroidVer = trim((string) get_device($userdata['id'], 1));
+$cpLastSeen = trim((string) get_device($userdata['id'], 21));
+$cpDeviceName = trim($cpDeviceBrand . ' ' . $cpDeviceModel);
+?>
+<div class="card card-custom gutter-b">
+  <div class="card-body cp-device-card">
+    <div class="d-flex align-items-center justify-content-between flex-wrap mb-2">
+      <div class="d-flex align-items-center font-weight-bold" style="font-size:15px;color:#0f172a">
+        <i class="fas fa-mobile-alt fa-lg text-nblue mr-2"></i>
+        <?php echo $cpDeviceName !== '' ? htmlspecialchars($cpDeviceName) : 'No device paired yet'; ?>
+      </div>
+      <?php if ($cpDeviceModel !== ''): ?><span class="cp-badge-ok">Connected</span><?php else: ?><span class="cp-badge-off">Disconnected</span><?php endif; ?>
     </div>
-</div>    
+    <?php if ($cpDeviceModel !== ''): ?>
+    <div class="cp-device-row"><i class="fas fa-lock"></i><span>Android ID: <?php echo htmlspecialchars($cpAndroidId !== '' ? $cpAndroidId : '—'); ?></span></div>
+    <div class="cp-device-row"><i class="fas fa-tools"></i><span>Android version: <?php echo htmlspecialchars($cpAndroidVer !== '' ? $cpAndroidVer : '—'); ?></span></div>
+    <div class="cp-device-row"><i class="fas fa-history"></i><span>Last seen: <?php echo $cpLastSeen !== '' ? htmlspecialchars(misec_datetime($cpLastSeen, 'Y-m-d h:i:s')) : '—'; ?></span></div>
+    <?php else: ?>
+    <p class="m-0" style="font-size:12.5px;color:#64748b">
+      Pair the Mitra Gateway Android app with this account to confirm Paytm Business notifications automatically.
+      Until then your UPI ID and QR code still accept payments from every UPI app.
+    </p>
+    <?php endif; ?>
+  </div>
+</div>
+<h4 class="text-white mt-3"><b>Smart Gateway works with</b></h4>
+<div class="font-size-sm text-white">Your customers can pay with any UPI app — the same UPI ID and QR works everywhere.</div>
+<hr class="bg-white">
+<div class="card card-custom">
+  <div class="card-body">
+    <div class="cp-apps">
+  <div class="cp-app">
+    <img src="assets/img/gpay.svg" alt="Google Pay">
+    <a class="cp-app-link" href="https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user" target="_blank" rel="noopener">Get app</a>
+  </div>
+  <div class="cp-app">
+    <img src="assets/img/phonepe.svg" alt="PhonePe">
+    <a class="cp-app-link" href="https://play.google.com/store/apps/details?id=com.phonepe.app" target="_blank" rel="noopener">Get app</a>
+  </div>
+  <div class="cp-app">
+    <img src="assets/img/paytm.svg" alt="Paytm">
+    <a class="cp-app-link" href="https://play.google.com/store/apps/details?id=net.one97.paytm" target="_blank" rel="noopener">Get app</a>
+  </div>
+  <div class="cp-app">
+    <img src="assets/img/sbi.svg" alt="SBI Pay">
+    <a class="cp-app-link" href="https://play.google.com/store/apps/details?id=com.sbi.upi" target="_blank" rel="noopener">Get app</a>
+  </div>
+  <div class="cp-app">
+    <img src="assets/img/bhim_logo.svg" alt="BHIM UPI">
+    <a class="cp-app-link" href="https://play.google.com/store/apps/details?id=in.org.npci.upiapp" target="_blank" rel="noopener">Get app</a>
+  </div>
+  <div class="cp-app">
+    <img src="assets/img/amazonpay.svg" alt="Amazon Pay">
+    <a class="cp-app-link" href="https://play.google.com/store/apps/details?id=in.amazon.mShop.android.shopping" target="_blank" rel="noopener">Get app</a>
+  </div>
+</div>
+    <p class="cp-apps-note">Your clients can pay with Google Pay, PhonePe, Paytm, Freecharge UPI, BHIM UPI, SBI UPI and every other BHIM-UPI app. App names and logos belong to their respective owners.</p>
+    <div class="cp-apps-mitra">
+      <img src="assets/img/smartgateway.svg" alt="Mitra Gateway">
+      <div>
+        <strong>Mitra Gateway app</strong>
+        <p>The Android helper app for auto-confirming Paytm Business notifications. This file was not included in the source archive, so no download is offered here.</p>
+      </div>
+    </div>
+  </div>
+</div>
                 </div>
                 
                 
@@ -216,7 +193,7 @@ function isUPI(upi) {
 <h2 class="mt-3 text-white"><b>Accept Payments Directly to your Bank Account</b></h2>
 <h3 class="text-white"><b>At 0% Transaction Fee</b></h3>
 <button class="btn btn-success btn-sm text-white" onclick="window.open('https://wa.me/91<?=support('mobile')?>?text=<?=urlencode("I'm interested in your UPI Smart Gateway")?>');">Activate UPI Smart Gateway</button>
-<div class="card card-custom p-2"><?=webdata("notification")?></div>
+<?php if (trim(webdata("notification")) !== ""): ?><div class="card card-custom p-2"><?=webdata("notification")?></div><?php endif; ?>
 </div>
 </div>        
 <?php } ?>        

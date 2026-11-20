@@ -48,7 +48,7 @@ if (isset($_POST['create_account'])) {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/dist/css/adminx.css">
   <link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="assets/css/cashpe.css?v=20261120r3">
+  <link rel="stylesheet" href="assets/css/cashpe.css?v=20261120r5">
   <script src="assets/dist/js/sweetalert.min.js"></script>
 </head>
 <body>

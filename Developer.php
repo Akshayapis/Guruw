@@ -27,7 +27,7 @@ $account = json_decode($userdata['settle_account']);
                                 <b class="text-white">REQUEST PARAMETER - URL :
                                     (<?php echo webdata('socket');?><?php echo base_url();?>/order/process) |
                                     (<?php echo webdata('socket');?><?php echo base_url();?>/order/payment)</b>
-                                <table class="table text-white mt-1">
+                                <div class="table-responsive"><table class="table text-white mt-1">
                                     <tr>
                                         <th>Key</th>
                                         <th>Value</th>
@@ -82,6 +82,7 @@ $account = json_decode($userdata['settle_account']);
                                         </td>
                                     </tr>
                                 </table>
+</div>
                             </div>
 
                             <div class="col-md-12">
@@ -91,7 +92,7 @@ $account = json_decode($userdata['settle_account']);
 
                             <div class="col-md-12">
                                 <b class="text-white">RESPONSE PARAMETER</b>
-                                <table class="table text-white mt-1">
+                                <div class="table-responsive"><table class="table text-white mt-1">
                                     <tr>
                                         <th>Key</th>
                                         <th>Value</th>
@@ -120,6 +121,7 @@ $account = json_decode($userdata['settle_account']);
                                             / Generated Only SUCCESS Status)</td>
                                     </tr>
                                 </table>
+</div>
                             </div>
 
                             <div class="col-md-12">
@@ -130,7 +132,7 @@ $account = json_decode($userdata['settle_account']);
                             <div class="col-md-12">
                                 <b class="text-white">REQUEST PARAMETER - URL
                                     (<?php echo webdata('socket');?><?php echo base_url();?>/order/status)</b>
-                                <table class="table text-white mt-1">
+                                <div class="table-responsive"><table class="table text-white mt-1">
                                     <tr>
                                         <th>Key</th>
                                         <th>Value</th>
@@ -148,6 +150,7 @@ $account = json_decode($userdata['settle_account']);
                                         <td>Your Unique ID (Only alphanumeric is allowed)</td>
                                     </tr>
                                 </table>
+</div>
                             </div>
 
                             <div class="col-md-12">

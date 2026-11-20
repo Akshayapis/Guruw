@@ -33,17 +33,17 @@ if (isset($_POST['login'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#059669">
   <title>Cashpe | Admin Login</title>
-  <link rel="icon" href="../images/cashpe-icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/images/cashpe-icon.svg" type="image/svg+xml">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/dist/css/adminx.css">
-  <link rel="stylesheet" href="../assets/vendor/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="../assets/css/cashpe.css?v=20261120r3">
-  <script src="../assets/dist/js/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="/assets/dist/css/adminx.css">
+  <link rel="stylesheet" href="/assets/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/cashpe.css?v=20261120r5">
+  <script src="/assets/dist/js/sweetalert.min.js"></script>
 </head>
 <body>
 <div class="cp-auth">
   <div class="cp-auth-art">
-    <a class="cp-brand" href="../index.php" style="color:#fff"><img src="../images/cashpe-logo-inverse.svg" alt="Cashpe"></a>
+    <a class="cp-brand" href="../index.php" style="color:#fff"><img src="/images/cashpe-logo-inverse.svg" alt="Cashpe"></a>
     <div>
       <span class="cp-pill" style="background:rgba(167,243,208,.18);color:#d1fae5">ADMIN CONSOLE</span>
       <h2 style="margin-top:20px">Complete control<br>of your payments.</h2>
@@ -53,7 +53,7 @@ if (isset($_POST['login'])) {
   </div>
   <div class="cp-auth-panel">
     <div class="cp-auth-card">
-      <div class="cp-mobile-brand"><img src="../images/cashpe-logo.svg" alt="Cashpe"></div>
+      <div class="cp-mobile-brand"><img src="/images/cashpe-logo.svg" alt="Cashpe"></div>
       <span class="cp-auth-kicker">ADMIN CONSOLE</span>
       <h2>Admin login 🛡️</h2>
       <p class="muted">Sign in to the Cashpe administration console.</p>

@@ -11,7 +11,7 @@ require_once('../system/function.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="../assets/dist/css/adminx.css" media="screen" />
     <link rel="stylesheet" href="../assets/vendor/fontawesome/css/all.min.css"/>
-    <link rel="stylesheet" href="../assets/css/cashpe.css?v=20261120r3">
+    <link rel="stylesheet" href="../assets/css/cashpe.css?v=20261120r5">
     <link rel="icon" href="<?php echo webdata('web_fav');?>" type="image/*" />
 	<!--script src="../assets/dist/js/historry.js"></script-->
 	<script src="../assets/dist/js/sweetalert.min.js"></script>

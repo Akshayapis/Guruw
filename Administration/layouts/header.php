@@ -24,19 +24,19 @@ redirect('Logout','0');
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#059669">
   <title><?php echo htmlspecialchars(webdata('company_name')); ?> | Admin Console</title>
-  <link rel="icon" href="../images/cashpe-icon.svg" type="image/svg+xml">
+  <link rel="icon" href="/images/cashpe-icon.svg" type="image/svg+xml">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="../assets/dist/css/adminx.css" media="screen">
-  <link rel="stylesheet" href="../assets/vendor/fontawesome/css/all.min.css">
-  <link rel="stylesheet" href="../assets/css/cashpe.css?v=20261120r3">
-  <script src="../assets/dist/js/historry.js"></script>
-  <script src="../assets/dist/js/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/assets/dist/css/adminx.css" media="screen">
+  <link rel="stylesheet" href="/assets/vendor/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/cashpe.css?v=20261120r5">
+  <script src="/assets/dist/js/historry.js"></script>
+  <script src="/assets/dist/js/sweetalert.min.js"></script>
 </head>
 <body>
 <div class="adminx-container">
   <nav class="navbar navbar-expand justify-content-between fixed-top">
     <div class="navbar-brand mb-0 ml-2 d-flex align-items-center">
-      <a class="brand" href="Dashboard"><img src="../images/cashpe-logo-inverse.svg" alt="Cashpe"></a>
+      <a class="brand" href="Dashboard"><img src="/images/cashpe-logo-inverse.svg" alt="Cashpe"></a>
       <span class="badge" style="background:rgba(167,243,208,.2);color:#d1fae5;margin-left:8px;border-radius:7px;font-size:9px;padding:4px 8px">ADMIN CONSOLE</span>
     </div>
     <ul class="navbar-nav flex-row align-items-center mr-3">
